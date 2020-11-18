@@ -54,6 +54,6 @@ var routes = Routes{
 		Name:        "FindByID",
 		Method:      "DELETE",
 		Pattern:     "/planet/{id}",
-		HandlerFunc: FindByID,
+		HandlerFunc: Delete,
 	},
 }
