@@ -94,7 +94,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 func findPlanetMovies(planet *domain.Planet) {
 	s := strconv.FormatInt(planet.Number, 10)
 	if n, err := strconv.Atoi(s); err == nil {
-		if p, err := c.Planet(n); err != nil {
+		if p, err := c.Planet(n); err == nil {
 			planet.FilmURLs = p.FilmURLs
 		}
 	}
