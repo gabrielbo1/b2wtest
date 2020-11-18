@@ -1,0 +1,38 @@
+version: '3.4'
+
+networks:
+  mongo-server-network:
+
+x-padrao: &padrao
+  networks:
+    - mongo-server-network
+
+services:
+  #Na tag image coloque a referencia a imagem customizada do postgresql.
+  #Vide diretorio postgres_image.
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./mongodata:/data/db
+    ports:
+      - 27017-27019:27017-27019
+    <<: *padrao
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    <<: *padrao
+
+  b2wtest:
+    image: b2wtest
+    build: .
+    restart: always
+    ports:
+    - 8080:8080
+    environment:
+      BASE_ADDRESS: mongo
+      PORT: 8080
+    <<: *padrao
